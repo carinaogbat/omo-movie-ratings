@@ -16,8 +16,21 @@ def homepage():
 
     return render_template('homepage.html')
 
+@app.route('/movies')
+def view_movies():
+    """Displays all movies"""
 
+    movies = crud.get_movies()
 
+    return render_template('all_movies.html', movies=movies)
+
+@app.route('/movies/<movie_id>')
+def show_movie(movie_id):
+    """Displays a selected movie"""
+
+    movie = crud.get_movie_by_id(movie_id)
+
+    return render_template('movie_details.html', movie=movie)
 
 if __name__ == "__main__":
     connect_to_db(app)
